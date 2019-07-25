@@ -10,13 +10,13 @@ from django.core.exceptions import PermissionDenied
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.template.response import TemplateResponse
+from django.urls import reverse
 
 from djangosaml2.signals import post_authenticated
 from djangosaml2.utils import get_custom_setting
 
 from mockdjangosaml2.settings import MOCK_SAML2_USERS
 from djangosaml2.conf import get_config
-from django.core.urlresolvers import reverse
 logger = logging.getLogger('djangosaml2')
 
 
@@ -50,7 +50,7 @@ def login(request, config_loader_path=None,
         logger.warning('The next parameter exists but is empty')
         came_from = settings.LOGIN_REDIRECT_URL
 
-    if not request.user.is_anonymous():
+    if not request.user.is_anonymous:
         try:
             redirect_authenticated_user = \
                         settings.SAML_IGNORE_AUTHENTICATED_USERS_ON_LOGIN
